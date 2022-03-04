@@ -25,6 +25,8 @@ public:
 	bool jump = false;
 
 	sf::RectangleShape rectangle;
+	static sf::Texture * s_texture;
+	sf::Sprite sprite;
 
 	sf::Vertex line1[2] =
 	{

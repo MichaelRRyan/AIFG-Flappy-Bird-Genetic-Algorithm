@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <list>
 #include "Bird.h"
 
 class Population
@@ -15,6 +16,7 @@ public:
 	int update(Pillar pillar);
 	void evolve();
 	int getFittest();
+	std::list<Bird> getFittest(int number);
 	int tournamentSelection();
 	Brain mutate(Brain birdBrain);
 	Brain crossOver(Brain a, Brain b);

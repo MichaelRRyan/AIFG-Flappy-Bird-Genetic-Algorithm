@@ -44,23 +44,27 @@ void Population::evolve()
 {
 	generation++;
 
-	int elitismOffset = 0;
+	int elitismOffset = 1;
 	int index = 0;
 	int fittest;
 	Bird a;
 	Bird b;
 
-	fittest = getFittest();
-	
 	//std::cout << "Generation: " << generation << std::endl;
 	//std::cout << "Highest Fitness: " << birdSet[fittest].fitness << std::endl;
 
 	newBirdSet = new Bird[Game::birdCount];
 
 	// Is Elitism turned on for the population?
-	// ...
+	if (elitism)
+	{
+		int fittest = getFittest();
 
-	for (int i = 0; i < Game::birdCount; i++)
+		for (; index < elitismOffset; index++)
+			newBirdSet[index] = birdSet[fittest];
+	}
+
+	for (; index < Game::birdCount; index++)
 	{
 		int indexa = tournamentSelection();	// We select candidates to evolve using Tournament selection.
 		int indexb = tournamentSelection();
@@ -68,8 +72,9 @@ void Population::evolve()
 		a.init(sf::Color(rand() % (255), rand() % (255), rand() % (255)));
 		a.brain = crossOver(birdSet[indexa].brain, birdSet[indexb].brain);
 		a.brain = mutate(a.brain);
-		newBirdSet[i] = a;
+		newBirdSet[index] = a;
 	}
+
 	// Copy the new birdSet back into the population.
 	for (int i = 0; i < Game::birdCount; i++)
 	{

@@ -52,8 +52,11 @@ Game::Game() :
 	text.setCharacterSize(10);
 	text.setPosition(sf::Vector2f(10, 10));
 	text.setFillColor(sf::Color::White);
-	text.setOutlineThickness(10);
+	text.setOutlineThickness(2.0f);
 
+	if (backgroundTexture.loadFromFile("assets/images/background.png"))
+		backgroundSprite.setTexture(backgroundTexture);
+	backgroundSprite.setScale(1.9f, 1.9f);
 }
 
 /// <summary>
@@ -465,6 +468,9 @@ void Game::update(float dt)
 void Game::draw()
 {
 	m_window.clear();
+
+	m_window.draw(backgroundSprite);
+
 	for (int i = 0; i < pillarCount; i++)
 	{
 		pillarSet[i].draw(m_window);

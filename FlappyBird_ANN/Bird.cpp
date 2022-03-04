@@ -6,6 +6,8 @@
 
 using namespace std;
 
+sf::Texture * Bird::s_texture = nullptr;
+
 Bird::Bird()
 {
 }
@@ -37,6 +39,16 @@ void Bird::init(sf::Color birdColour)
 
 	brain.init(5, 4, 1);	// Give the Bird a Brain
 
+	if (s_texture == nullptr)
+	{
+		s_texture = new sf::Texture();
+		s_texture->loadFromFile("assets/images/plane.png");
+	}
+	
+	sprite.setTexture(*s_texture);
+	sprite.setColor(birdColour);
+	sprite.setOrigin(10.0f, 0.5f);
+	sprite.setScale(0.6f, 0.6f);
 }
 
 //the game loop method
@@ -101,7 +113,14 @@ void Bird::reset()
 
 void Bird::draw(sf::RenderWindow& game_window, Pillar pillar)
 {
-	game_window.draw(rectangle);
+	sprite.setPosition(rectangle.getPosition());
+
+
+	sprite.setTextureRect({ 88 * (int(score * 20) % 3), 0, 88, 73 });
+	game_window.draw(sprite);
+
+	//game_window.draw(rectangle);
+
 	// Draw the connecting lines from Bird to pillar corners.
 	line1[0] = sf::Vector2f(x + rectangle.getSize().x / 2, y + rectangle.getSize().y / 2);
 	line1[0].color = colour;

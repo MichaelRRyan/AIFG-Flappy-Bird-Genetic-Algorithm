@@ -19,11 +19,11 @@ public:
 	static const int pillarGap = 600;	// The gap between pillars
 	static const int pillarCount = 5;
 
-	static const bool learn = true;		// True if learning to play via the GA. 
+	static const bool learn = false;		// True if learning to play via the GA. 
 										// Don't forget to set ai=false, player=false and birdCount to a high number below.
 										// Also remember that Elitism defaults to false, so pressing 'E' will enable it.
 	static const bool player = false;	// True if human wants to play. Don't forget to set birdCount=1 below.
-	static const bool ai = false;		// True if we are loading a neural network and the AI plays.
+	static const bool ai = true;		// True if we are loading a neural network and the AI plays.
 	static const int birdCount = 20;		// Our population size for learning via the GA is something like 20. Experiment with that number.
 										// Set to 1 if we are in player mode or just loading the GA Brain.
 										// If AI is true and this is > 1 then each AI bird gets randomly assigned a GA or Tensorflow trained brain.
@@ -74,6 +74,8 @@ private:
 
 	Population population; //For the Genetic Algorithm.
 
+	sf::Texture backgroundTexture;
+	sf::Sprite backgroundSprite;
 
 };
 
